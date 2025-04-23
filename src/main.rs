@@ -101,11 +101,3 @@ async fn search(
         }
     }
 }
-
-mod tests {
-    #[test]
-    fn index_test() {}
-
-    #[test]
-    fn search_test() {}
-}
