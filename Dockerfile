@@ -17,4 +17,4 @@ ENV IP="0.0.0.0"
 COPY --from=builder /app/target/release/search_project /usr/local/bin/
 
 CMD ["/usr/local/bin/search_project"]
-EXPOSE 3000
+EXPOSE 8080
