@@ -12,9 +12,6 @@ use axum::{
 use serde::Deserialize;
 use serde_json::json;
 
-const IP: &str = "127.0.0.1";
-const PORT: &str = "8080";
-
 #[derive(Deserialize)]
 struct SearchQuery {
     query: String,
@@ -29,6 +26,8 @@ pub struct AppState {
 async fn main() {
     dotenv::dotenv().ok(); // Load environment variables
 
+    let ip = env::var("IP").unwrap_or("127.0.0.1".to_string());
+    let port = env::var("PORT").unwrap_or("3000".to_string());
     let api_key = env::var("GOOGLE_API_KEY").expect("GOOGLE_API_KEY must be set");
     let search_engine_id =
         env::var("GOOGLE_SEARCH_ENGINE_ID").expect("GOOGLE_SEARCH_ENGINE_ID must be set");
@@ -43,17 +42,20 @@ async fn main() {
         .route("/", get(index))
         .with_state(state);
 
-    let listener = tokio::net::TcpListener::bind(format!("{}:{}", IP, PORT))
+    let listener = tokio::net::TcpListener::bind(format!("{}:{}", ip, port))
         .await
         .unwrap();
 
-    println!("Server hosted at {}:{}", IP, PORT);
+    println!("Server hosted at {}:{}", ip, port);
     axum::serve(listener, app).await.unwrap();
 }
 
 async fn index() -> Result<Html<String>> {
     match fs::read_to_string("./static/index.html").await {
-        Ok(html) => Ok(Html(html)),
+        Ok(html) => {
+            println!("Serving index.html");
+            Ok(Html(html))
+        }
         Err(e) => {
             eprintln!("Error reading index.html: {}", e);
             Ok(Html("<h1>Unable to load page</h1>".to_string()))
