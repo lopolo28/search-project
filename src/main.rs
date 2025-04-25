@@ -1,7 +1,5 @@
 use std::env;
 
-use tokio::fs;
-
 use axum::{
     Json, Router,
     extract::State,
@@ -16,6 +14,7 @@ use serde_json::json;
 struct SearchQuery {
     query: String,
 }
+
 #[derive(Clone)]
 pub struct AppState {
     google_api_key: String,
@@ -27,7 +26,7 @@ async fn main() {
     dotenv::dotenv().ok(); // Load environment variables
 
     let ip = env::var("IP").unwrap_or("127.0.0.1".to_string());
-    let port = env::var("PORT").unwrap_or("3000".to_string());
+    let port = env::var("PORT").unwrap_or("8080".to_string());
     let api_key = env::var("GOOGLE_API_KEY").expect("GOOGLE_API_KEY must be set");
     let search_engine_id =
         env::var("GOOGLE_SEARCH_ENGINE_ID").expect("GOOGLE_SEARCH_ENGINE_ID must be set");
@@ -51,16 +50,8 @@ async fn main() {
 }
 
 async fn index() -> Result<Html<String>> {
-    match fs::read_to_string("./static/index.html").await {
-        Ok(html) => {
-            println!("Serving index.html");
-            Ok(Html(html))
-        }
-        Err(e) => {
-            eprintln!("Error reading index.html: {}", e);
-            Ok(Html("<h1>Unable to load page</h1>".to_string()))
-        }
-    }
+    let html = include_str!("./index.html");
+    Ok(Html(html.to_string()))
 }
 async fn make_google_search(
     query: &str,

@@ -1,0 +1,13 @@
+2025-04-24 12:53:45 startup archives unpack
+2025-04-24 12:53:45 install libssl3:amd64 <none> 3.0.15-1~deb12u1
+2025-04-24 12:53:45 status triggers-pending libc-bin:amd64 2.36-9+deb12u10
+2025-04-24 12:53:45 status half-installed libssl3:amd64 3.0.15-1~deb12u1
+2025-04-24 12:53:45 status unpacked libssl3:amd64 3.0.15-1~deb12u1
+2025-04-24 12:53:45 startup packages configure
+2025-04-24 12:53:45 configure libssl3:amd64 3.0.15-1~deb12u1 <none>
+2025-04-24 12:53:45 status unpacked libssl3:amd64 3.0.15-1~deb12u1
+2025-04-24 12:53:45 status half-configured libssl3:amd64 3.0.15-1~deb12u1
+2025-04-24 12:53:45 status installed libssl3:amd64 3.0.15-1~deb12u1
+2025-04-24 12:53:45 trigproc libc-bin:amd64 2.36-9+deb12u10 <none>
+2025-04-24 12:53:45 status half-configured libc-bin:amd64 2.36-9+deb12u10
+2025-04-24 12:53:45 status installed libc-bin:amd64 2.36-9+deb12u10

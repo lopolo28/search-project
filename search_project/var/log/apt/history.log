@@ -1,0 +1,5 @@
+
+Start-Date: 2025-04-24  12:53:45
+Commandline: apt-get install -y --no-install-recommends libssl3
+Install: libssl3:amd64 (3.0.15-1~deb12u1)
+End-Date: 2025-04-24  12:53:45
