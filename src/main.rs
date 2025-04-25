@@ -67,7 +67,6 @@ async fn make_google_search(
     api_key: &str,
     search_engine_id: &str,
 ) -> Result<serde_json::Value, reqwest::Error> {
-    // ... (your reqwest code here, returning serde_json::Value for simplicity)
     let client = reqwest::Client::new();
     let url = "https://www.googleapis.com/customsearch/v1";
 
