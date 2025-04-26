@@ -8,7 +8,7 @@ COPY src ./src
 RUN cargo build --release
 
 FROM debian:bookworm-slim
-RUN apt-get update && apt-get install -y --no-install-recommends libssl3
+RUN apt-get update && apt-get install -y --no-install-recommends libssl3 ca-certificates
 
 ENV PORT="8080"
 ENV IP="0.0.0.0"
