@@ -30,7 +30,7 @@
                     Get Google Answers
                 </button>
                 <textarea
-                    class="w-full h-48 p-4 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700"
+                    class="w-full h-64 p-4 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700"
                     placeholder="Search results will appear here..."
                     id="result_Area"
                     readonly
@@ -49,10 +49,8 @@
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log(data);
-
                         let res = data.payload.items
-                            .map((el, i, arr) => `${i + 1}: ${el.displayLink}`)
+                            .map((el, i, arr) => `${i + 1}: ${el.title}`)
                             .join("\r\n");
                         $("#result_Area").val(res);
                     })
