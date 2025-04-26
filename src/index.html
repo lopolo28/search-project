@@ -35,11 +35,35 @@
                     id="result_Area"
                     readonly
                 ></textarea>
+                <button
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline active:bg-blue-800"
+                    id="saveItems"
+                >
+                    Export search
+                </button>
             </div>
         </div>
         <script>
+            function download(filename, text) {
+                let element = document.createElement("a");
+                element.setAttribute(
+                    "href",
+                    "data:text/plain;charset=utf-8," + encodeURIComponent(text),
+                );
+                element.setAttribute("download", filename);
+
+                element.style.display = "none";
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+            let search_history = null;
             $("#searchMe").on("click", function () {
                 let input_value = $("#search_Items").val();
+                if (input_value == "") {
+                    return;
+                }
+
                 fetch("/api/search", {
                     method: "POST",
                     headers: {
@@ -52,6 +76,7 @@
                         let res = data.payload.items
                             .map((el, i, arr) => `${i + 1}: ${el.title}`)
                             .join("\r\n");
+                        search_history = res;
                         $("#result_Area").val(res);
                     })
                     .catch((error) => {
@@ -60,6 +85,28 @@
                             "An error occurred while fetching search results.",
                         );
                     });
+            });
+            $("#saveItems").on("click", function () {
+                if (!search_history) {
+                    $("#saveItems")
+                        .html("Cannot export. Search is empty")
+                        .addClass("bg-red-600")
+                        .addClass("hover:bg-red-700")
+                        .removeClass("bg-blue-600")
+                        .removeClass("hover:bg-blue-700");
+
+                    setTimeout(() => {
+                        $("#saveItems")
+                            .html("Export search")
+                            .addClass("bg-blue-600")
+                            .addClass("hover:bg-blue-700")
+                            .removeClass("bg-red-600")
+                            .removeClass("hover:bg-red-700");
+                    }, 5000);
+                    return;
+                }
+
+                download("results.txt", search_history);
             });
         </script>
     </body>
