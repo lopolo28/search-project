@@ -15,6 +15,7 @@ dotenv = "0.15.0"
 name = "search_project"
 path = "src/main.rs"
 
+
 [dev-dependencies]
 tokio = { version = "1.44.2", features = ["full", "macros", "rt-multi-thread"] }
 axum = { version = "0.8.3" }
